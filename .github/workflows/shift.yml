@@ -1,26 +1,33 @@
-name: Daily Shift Automation
+name: Run All Shift Scripts
 
 on:
+  workflow_dispatch:      # Manual trigger
   schedule:
-    - cron: '0 0 * * *'
-  workflow_dispatch:
+    - cron: '0 6 * * *'   # Every day at 6:00 AM UTC
 
 jobs:
-  run-shift-aggregator:
+  run-shifts:
     runs-on: ubuntu-latest
-    env:
-      GOOGLE_CREDS: ${{ secrets.GOOGLE_CREDS }}
+
     steps:
       - uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: Install dependencies
         run: pip install -r requirements.txt
+
       - name: Write Google credentials
         run: echo "$GOOGLE_CREDS" > credentials.json
-      - name: Run shift scripts
-        run: |
-          python email_shift_extractor.py
-          # Add other scripts as needed
+
+      - name: Run email shift extractor
+        run: python email_shift_extractor.py
+
+      - name: Run WhatsApp shift parser
+        run: python whatsapp_shift_parser.py
+
+      - name: Add shifts to sheets
+        run: python add_shifts_to_sheets.py
