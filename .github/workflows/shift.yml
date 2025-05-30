@@ -1,3 +1,8 @@
+- name: Write credentials.json from secret
+  run: |
+    echo "${{ secrets.CREDENTIALS_JSON }}" > credentials.json
+  shell: bash
+  
 name: Run All Shift Scripts
 
 on:
