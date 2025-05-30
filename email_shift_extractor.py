@@ -2,11 +2,7 @@
 import os
 import re
 
-if not os.path.exists('credentials.json'):
-    print("Error: 'credentials.json' file is missing. Please ensure it is present in the working directory.")
-    sys.exit(1)
 
-# Existing code follows...
 from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
