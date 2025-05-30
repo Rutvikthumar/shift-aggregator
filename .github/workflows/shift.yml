@@ -20,9 +20,10 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Write token.json
-        run: |
-          printf '%s' "${{ secrets.TOKEN_JSON }}" > token.json
+      - name: Recreate token.json
+        run: echo "$GMAIL_TOKEN_JSON" > token.json
+    env:
+    GMAIL_TOKEN_JSON: ${{ secrets.GMAIL_TOKEN_JSON }}
               
       - name: Write Google credentials
         run: printf '%s' "${{ secrets.CREDENTIALS_JSON }}" > credentials.json
