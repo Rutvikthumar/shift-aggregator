@@ -21,7 +21,9 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Write token.json
-        run: printf '%s' "${{ secrets.TOKEN_JSON }}" > token.json
+        run: |
+          printf '%s' "${{ secrets.TOKEN_JSON }}" > token.json
+              
       - name: Write Google credentials
         run: printf '%s' "${{ secrets.CREDENTIALS_JSON }}" > credentials.json
 
