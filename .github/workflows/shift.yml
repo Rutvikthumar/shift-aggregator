@@ -1,8 +1,3 @@
-- name: Write credentials.json from secret
-  run: |
-    echo "${{ secrets.CREDENTIALS_JSON }}" > credentials.json
-  shell: bash
-  
 name: Run All Shift Scripts
 
 on:
@@ -26,7 +21,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Write Google credentials
-        run: echo "$GOOGLE_CREDS" > credentials.json
+        run: echo "${{ secrets.CREDENTIALS_JSON }}" > credentials.json
 
       - name: Run email shift extractor
         run: python email_shift_extractor.py
