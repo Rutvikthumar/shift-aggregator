@@ -21,7 +21,7 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Write Google credentials
-        run: echo "${{ secrets.CREDENTIALS_JSON }}" > credentials.json
+        run: printf '%s' "${{ secrets.CREDENTIALS_JSON }}" > credentials.json
 
       - name: Run email shift extractor
         run: python email_shift_extractor.py
